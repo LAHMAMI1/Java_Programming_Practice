@@ -66,21 +66,25 @@ public class Program {
             CharList temp = currentNode;
 
             for (int x = 0; x < 10; x++) {
-                double numHash = oneHash * (double) temp.num;
-
-                if ((int) numHash == y)
-                    System.out.print(temp.num);
-                if ((int) numHash > y)
-                    System.out.print("# ");
-                else
+                if (temp == null) {
                     System.out.print(" ");
-                temp = temp.next;
+                }
+                else {
+                    double numHash = oneHash * (double) temp.num;
+                    if ((int) numHash == y)
+                        System.out.print(temp.num);
+                    if ((int) numHash > y)
+                        System.out.print("# ");
+                    else
+                        System.out.print(" ");
+                    temp = temp.next;
+                }
             }
 
             System.out.println();
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10 && currentNode != null; i++) {
             System.out.print(currentNode.c + " ");
             currentNode = currentNode.next;
         }

@@ -10,6 +10,8 @@ This program implements a text similarity analyzer that compares two text files 
    - Reads text files and converts them into arrays of words
    - Uses `BufferedReader` for efficient file reading
    - Splits text on whitespace to get individual words
+   - Enforces a 10MB size limit for input files
+   - Performs file size validation before processing
 
 2. **Dictionary Creation**
    - Creates a unique set of words from both files using `TreeSet`
@@ -74,7 +76,15 @@ This program implements a text similarity analyzer that compares two text files 
 ```bash
 java Program <file1> <file2>
 ```
-The program will output a similarity score and create a dictionary.txt file containing all unique words from both files.
+The program will:
+1. Check if both input files are under 10MB in size
+2. Output a similarity score
+3. Create a dictionary.txt file containing all unique words from both files
+
+### Limitations
+- Maximum file size: 10MB per file
+- Files must be text files
+- Files must be accessible and readable
 
 ## Example Output
 ```

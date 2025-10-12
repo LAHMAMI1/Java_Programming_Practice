@@ -9,8 +9,16 @@ class Program {
         String[] words = new String[0];
 
         try {
+            File fileObj = new File(file);
+            long fileSize = fileObj.length();
+            long maxSize = 10L * 1024 * 1024; // 10MB in bytes
 
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+            if (fileSize > maxSize) {
+                System.err.println("Error: File size exceeds 10MB limit");
+                System.exit(-1);
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(fileObj));
             StringBuilder content = new StringBuilder();
             String line;
 

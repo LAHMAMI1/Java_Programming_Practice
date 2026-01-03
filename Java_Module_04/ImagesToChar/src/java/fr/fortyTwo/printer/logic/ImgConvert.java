@@ -1,7 +1,7 @@
 package fr.fortyTwo.printer.logic;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -10,7 +10,7 @@ public class ImgConvert {
     char white;
     char black;
 
-    File imageFile;
+    InputStream imageFile;
     BufferedImage image;
 
     int height;
@@ -24,7 +24,7 @@ public class ImgConvert {
 
     public ImgConvert(String[] args) {
         // Check argument and valid path
-        if (args.length != 3) {
+        if (args.length != 2) {
             System.err.println("Error: Invalid arguments");
             System.exit(-1);
         }
@@ -36,7 +36,7 @@ public class ImgConvert {
 
         this.white = args[0].charAt(0);
         this.black = args[1].charAt(0);
-        this.imageFile = new File(args[2]);
+        this.imageFile = getClass().getClassLoader().getResourceAsStream("it.bmp");
         this.image = null;
         this.height = 0;
         this.width = 0;

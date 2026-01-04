@@ -3,12 +3,15 @@ package fr.fortyTwo.printer.logic;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.diogonunes.jcolor.Ansi;
+import com.diogonunes.jcolor.Attribute;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 public class ImgConvert {
-    char white;
-    char black;
+    String white;
+    String black;
 
     InputStream imageFile;
     BufferedImage image;
@@ -20,22 +23,11 @@ public class ImgConvert {
     int red;
     int green;
     int blue;
-    char[][] printPixels;
+    String[][] printPixels;
 
-    public ImgConvert(String[] args) {
-        // Check argument and valid path
-        if (args.length != 2) {
-            System.err.println("Error: Invalid arguments");
-            System.exit(-1);
-        }
-
-        if (args[0].length() != 1 || args[1].length() != 1) {
-            System.err.println("Error:\nUsage: Main <white> <black> <path_of_BMP>");
-            System.exit(-1);
-        }
-
-        this.white = args[0].charAt(0);
-        this.black = args[1].charAt(0);
+    public ImgConvert(Args arguments) {
+        this.white = arguments.getWhite();
+        this.black = arguments.getBlack();
         this.imageFile = getClass().getClassLoader().getResourceAsStream("it.bmp");
         this.image = null;
         this.height = 0;
@@ -54,7 +46,7 @@ public class ImgConvert {
             height = image.getHeight();
             width = image.getWidth();
 
-            printPixels = new char[height][width];
+            printPixels = new String[height][width];
 
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
@@ -75,10 +67,31 @@ public class ImgConvert {
         }
     }
 
+    private Attribute getColor(String colorName) {
+        String color = colorName.toUpperCase();
+
+        switch (color) {
+            case "RED":
+                return Attribute.RED_TEXT();
+            case "GREEN":
+                return Attribute.GREEN_TEXT();
+            case "BLACK":
+                return Attribute.BLACK_TEXT();
+            case "YELLOW":
+                return Attribute.YELLOW_TEXT();
+            case "BLUE":
+                return Attribute.BLUE_TEXT();
+            default:
+                return Attribute.WHITE_TEXT();
+        }
+    }
+
     private void printImg() {
         for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++)
-                System.out.print(printPixels[i][j]);
+            for (int j = 0; j < width; j++) {
+                Attribute color = getColor(printPixels[i][j]);
+                System.out.print(Ansi.colorize("█", color));
+            }
             System.out.println();
         }
     }

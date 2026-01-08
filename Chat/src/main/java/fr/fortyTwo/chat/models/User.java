@@ -85,6 +85,9 @@ public class User {
         return "User{" +
                 "id='" + this.id + '\'' +
                 ", login=" + this.login +
+                ", password='" + this.password + '\'' +
+                ", createdRooms='" + this.createdRooms + '\'' +
+                ", rooms='" + this.socializedRooms + '\'' +
                 '}';
     }
 };

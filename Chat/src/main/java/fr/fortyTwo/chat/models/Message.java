@@ -83,10 +83,12 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
-                "id='" + this.id + '\'' +
-                ", author=" + this.author.getLogin() + '\'' +
-                ", text=" + this.text +
+        return "Message : {" + '\n' +
+                "id=" + this.id + "," + '\n' +
+                "author=" + this.author + "," + '\n' +
+                "room=" + this.room + "," + '\n' +
+                "text=" + this.text + "," + '\n' +
+                "dateTime=" + this.dateTime + "," + '\n' +
                 '}';
     }
 }

@@ -1,0 +1,8 @@
+package fr.fortyTwo.chat.repositories;
+
+import fr.fortyTwo.chat.models.Message;
+import java.util.Optional;
+
+public interface MessagesRepository {
+    Optional<Message> findById(Long id);
+}

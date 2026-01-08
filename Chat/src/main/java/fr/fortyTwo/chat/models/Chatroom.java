@@ -74,7 +74,9 @@ public class Chatroom {
     public String toString() {
         return "Chatroom{" +
                 "id='" + this.id + '\'' +
-                ", name=" + this.name +
+                ", name=" + this.name + '\'' +
+                ", owner=" + this.owner + '\'' +
+                ", messages=" + this.messages + '\'' +
                 '}';
     }
 }

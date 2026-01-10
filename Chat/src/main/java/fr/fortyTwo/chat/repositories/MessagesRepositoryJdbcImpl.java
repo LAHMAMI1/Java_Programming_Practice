@@ -145,4 +145,48 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
             throw new RuntimeException("Database error: ", e);
         }
     }
+
+    @Override
+    public void update(Message message) {
+        if (message.getId() == null)
+            throw new NotSavedSubEntityException("The message ID cannot be null");
+        if (message.getAuthor() == null || message.getAuthor().getId() == null)
+            throw new NotSavedSubEntityException("Message author must have a valid ID");
+        if (message.getRoom() == null || message.getRoom().getId() == null)
+            throw new NotSavedSubEntityException("Message room must have a valid ID");
+        if (!authorExist(message.getAuthor()))
+            throw new NotSavedSubEntityException(
+                    "Author with ID " + message.getAuthor().getId() + " does not exist in database");
+        if (!roomExist(message.getRoom()))
+            throw new NotSavedSubEntityException(
+                    "Chatroom with ID " + message.getRoom().getId() + " does not exist in database");
+
+        String sql = "UPDATE messages " +
+                "SET message_text = ?, " +
+                "message_date = ?, " +
+                "author_id = ?, " +
+                "room_id = ? " +
+                "WHERE message_id = ?";
+
+        try (Connection con = datasource.getConnection()) {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, message.getText());
+            
+            if (message.getDateTime() == null)
+                statement.setNull(2, java.sql.Types.TIMESTAMP);
+            else
+                statement.setTimestamp(2, java.sql.Timestamp.valueOf(message.getDateTime()));
+            
+            statement.setLong(3, message.getAuthor().getId());
+            statement.setLong(4, message.getRoom().getId());
+            statement.setLong(5, message.getId());
+
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows == 0)
+                throw new SQLException("Update failed, no rows affected.");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Database error: ", e);
+        }
+    }
 }

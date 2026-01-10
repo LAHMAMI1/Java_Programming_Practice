@@ -37,7 +37,7 @@ public class Program {
             scanner.close();
         }
 
-        // Save new message and get it's ID
+        // TEST 2: Save new message and get it's ID
         {
             User creator = new User(5L, "user", "user", new ArrayList(), new ArrayList());
             User author = creator;
@@ -50,6 +50,20 @@ public class Program {
             messagesRepository.save(message);
 
             System.out.println(message.getId());
+        }
+
+        // TEST 3: Update message
+        {
+            MessagesRepository messagesRepository = new MessagesRepositoryJdbcImpl(dataSource);
+            Optional<Message> messageOptional = messagesRepository.findById(1L);
+            if (messageOptional.isPresent()) {
+                Message message = messageOptional.get(); 
+                message.setText("Bye"); 
+                message.setDateTime(null); 
+                messagesRepository.update(message); 
+                System.out.println("Message updated");
+            } else
+                System.err.println("The message doesn't exist");
         }
 
     }

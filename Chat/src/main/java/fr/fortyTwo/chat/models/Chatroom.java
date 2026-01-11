@@ -72,11 +72,11 @@ public class Chatroom {
 
     @Override
     public String toString() {
-        return "Chatroom{" +
-                "id='" + this.id + '\'' +
-                ", name=" + this.name + '\'' +
-                ", owner=" + this.owner + '\'' +
-                ", messages=" + this.messages + '\'' +
-                '}';
+        return "Chatroom : {" + '\n' +
+                "id='" + this.id + "," + '\n' +
+                "name=" + this.name + "," + '\n' +
+                "owner=" + this.owner + "," + '\n' +
+                "messages=" + this.messages + "," + '\n' +
+                '}' + '\n';
     }
 }

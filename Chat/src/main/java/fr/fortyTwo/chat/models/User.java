@@ -82,12 +82,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id='" + this.id + '\'' +
-                ", login=" + this.login +
-                ", password='" + this.password + '\'' +
-                ", createdRooms='" + this.createdRooms + '\'' +
-                ", rooms='" + this.socializedRooms + '\'' +
-                '}';
+        return "User : {" + '\n' +
+                "id='" + this.id + "," + '\n' +
+                "login=" + this.login + "," + '\n' +
+                "password='" + this.password + "," + '\n' +
+                "createdRooms='" + this.createdRooms + "," + '\n' +
+                "SocializedRooms='" + this.socializedRooms + "," + '\n' +
+                '}'+ '\n';
     }
 };
